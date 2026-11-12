@@ -1,0 +1,31 @@
+[package]
+name = "txtanoffer-notepad"
+version = "0.1.0"
+description = "TxtAnOffer Notepad - a desk notepad for your deals. Local-first capture; link a TxtAnOffer account for Deal Sheets, drafts and TC Check."
+authors = ["TxtAnOffer"]
+edition = "2021"
+
+# The pad itself is bundled with the app (ui/) and works fully offline.
+# Linking a TxtAnOffer account is a layer on top: this crate then talks to
+# the SAME /notepad routes the website uses (signed trio in the query
+# string) to push notes and pull Deal Sheets. No product logic is
+# reimplemented here.
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-global-shortcut = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+
+[profile.release]
+# Members run this on whatever laptop they have; keep the binary lean.
+strip = true
+lto = true
