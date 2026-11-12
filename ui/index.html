@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TxtAnOffer Notepad</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">txtanoffer<sup>®</sup> <span>Notepad</span></div>
+    <button id="linkPill" class="pill" type="button">Link my account</button>
+  </header>
+
+  <section id="linkPanel" class="linkpanel" hidden>
+    <h2>Link my TxtAnOffer account</h2>
+    <p class="sub">Linking is optional. The pad works fully on its own — notes
+      save on this computer. Link your account and your notes can build Deal
+      Sheets, drafts and TC Checks on TxtAnOffer.</p>
+    <ol class="steps">
+      <li>Text <strong>DASHBOARD</strong> to <strong>(833) 897-0333</strong>.</li>
+      <li>Open the link you get back <em>on this computer</em> and copy the
+        full address from your browser's address bar.</li>
+      <li>Paste it here:</li>
+    </ol>
+    <input id="linkInput" type="text" placeholder="https://txtanoffer.com/dashboard?phone=…"
+      autocomplete="off" spellcheck="false">
+    <div class="row">
+      <button id="linkBtn" class="btn" type="button">Link account</button>
+      <button id="linkCancel" class="btn ghost" type="button">Not now</button>
+      <button id="unlinkBtn" class="btn ghost danger" type="button" hidden>Unlink</button>
+    </div>
+    <p id="linkMsg" class="msg"></p>
+  </section>
+
+  <div class="dealbar">
+    <select id="dealSelect" aria-label="Choose a deal"></select>
+    <select id="newState" aria-label="State for a new deal">
+      <option value="TX">TX</option>
+      <option value="CO">CO</option>
+    </select>
+    <button id="newDeal" class="btn small" type="button">+ New deal</button>
+  </div>
+
+  <main id="padArea">
+    <input id="dealTitle" type="text" placeholder="Deal name — the address works well"
+      maxlength="120" autocomplete="off">
+    <textarea id="pad" maxlength="20000" spellcheck="true"
+      placeholder="Write the deal notes here, the way you'd scribble them after a call — fragments, question marks, half-remembered numbers are fine.&#10;&#10;Saved on this computer as you type."></textarea>
+
+    <details id="sheetBox" hidden>
+      <summary>Deal Sheet <span class="sub">(from TxtAnOffer — pull to refresh)</span></summary>
+      <div id="sheetRows"></div>
+    </details>
+
+    <div class="actions">
+      <button id="syncBtn" class="btn" type="button" hidden>Sync this deal</button>
+      <button id="pullBtn" class="btn ghost" type="button" hidden>Pull my deals</button>
+      <button id="webBtn" class="btn ghost" type="button" hidden>Deal Sheet ↗</button>
+      <span class="spacer"></span>
+      <button id="deleteBtn" class="btn ghost danger" type="button">Delete deal</button>
+    </div>
+  </main>
+
+  <div id="welcome" class="welcome" hidden>
+    <h2>Your desk notepad for deals</h2>
+    <p>One pad per deal. Write the notes the second the call ends — they save
+      on this computer as you type, no sign-in, no page load.</p>
+    <button id="firstDeal" class="btn" type="button">Start your first deal</button>
+    <p class="sub">Have a TxtAnOffer account? <a href="#" id="welcomeLink">Link it</a>
+      and these notes build your Deal Sheets.</p>
+  </div>
+
+  <footer class="statusbar">
+    <span id="saveState">Saved on this computer</span>
+    <span id="syncState"></span>
+  </footer>
+  <footer class="settingsbar">
+    <label><input type="checkbox" id="aotToggle"> Always on top</label>
+    <label><input type="checkbox" id="trayToggle"> Start in tray</label>
+    <span class="hint">Summon / hide: Ctrl+Shift+N</span>
+  </footer>
+
+<script src="app.js"></script>
+</body>
+</html>
