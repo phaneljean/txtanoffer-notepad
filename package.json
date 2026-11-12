@@ -1,0 +1,1 @@
+{"description":"TxtAnOffer Notepad desktop shell (Tauri 2) - a native window around the live Deal Notepad at txtanoffer.com.","devDependencies":{"@tauri-apps/cli":"^2"},"name":"txtanoffer-notepad-desktop","private":true,"scripts":{"build":"tauri build","dev":"tauri dev","icon":"tauri icon src-tauri/app-icon.png","tauri":"tauri"},"version":"0.1.0"}
