@@ -34,7 +34,21 @@ function fmtTime(iso) {
 function fmtValue(key, v) {
   if (v === null || v === undefined || v === "") return "";
   if (typeof v === "number") {
-    const money = /price|amount|fee|earnest|down|credit|concession/.test(key);
+    // Percentage fields store fractions (0.2 = 20%) and must be handled
+    // before the money branch: pct keys contain "down"/"earnest", so the
+    // money regex below would claim them ("$0.2"). The pulled sheet carries
+    // no field kinds (the Rust sync layer keeps only fields+defs from
+    // window.NP), so the _pct suffix is the signal; the server's FIELD_KINDS
+    // marks exactly two pct fields, down_payment_pct and earnest_pct.
+    if (key.endsWith("_pct")) {
+      // Mirror format_field_value in notepad.py: f"{value * 100:g}%"
+      // (%g = up to 6 significant digits, trailing zeros stripped).
+      return parseFloat((v * 100).toPrecision(6)) + "%";
+    }
+    // _pct keys are excluded here too, so they can never fall into the
+    // money branch even if the branches above are ever reordered.
+    const money = !key.endsWith("_pct") &&
+      /price|amount|fee|earnest|down|credit|concession/.test(key);
     return (money ? "$" : "") + v.toLocaleString("en-US");
   }
   return String(v);
